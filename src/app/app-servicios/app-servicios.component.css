@@ -1,0 +1,15 @@
+.panel h2{ color:#444444; font-size:18px; margin:0 0 8px 0;}
+.panel h3 { color:#274344; font-size:16px;}
+.panel p { color:#777777; font-size:14px; margin-bottom:30px; line-height:24px;}
+.main-div-services {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  margin: 10px auto 30px;
+  max-width: 60%;
+  padding: 50px 60px 60px 71px;
+}
+.page { text-align:center;}
+.page .row .col-md-3 .glyphicon { color: #54ce66 }
+
+
+

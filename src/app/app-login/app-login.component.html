@@ -1,0 +1,29 @@
+<div class="page" id="loginPage">
+  <div class="main-div-login">
+    <div class="panel">
+      <h2>Acceso de usuario</h2>
+      <p>Por favor indica tu usuario y tu password</p>
+    </div>
+    <form id="loginForm">
+      <div class="form-group">
+        <input type="username" class="form-control" id="inputUsername"
+               placeholder="Identificador de usuario" required>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+      </div>
+      <div class="alert alert-danger" id="alertaErrorLogin">
+        <strong>Ups!</strong> Usuario no registrado
+      </div>
+      <div class="alert alert-danger" id="alertaErrorVerificacionLogin">
+        <strong>Ups!</strong> Authenticación no verificada
+      </div>
+      <button type="submit" class="btn btn-primary" id="buttonLogin">Login</button>
+
+      <!-- Honeypot: Mecanismo para evitar bots -->
+      <label for="nospam" class="escondido">¡Si ves esto, no rellenes el siguiente campo!</label>
+      <input id="nospam" name="nospam" class="escondido" />
+
+    </form>
+  </div>
+</div>
