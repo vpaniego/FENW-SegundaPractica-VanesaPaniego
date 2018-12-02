@@ -11,15 +11,15 @@
         <li class="active"><a routerLink="home">Inicio</a></li>
         <li><a routerLink="servicios">Servicios</a></li>
         <li><a routerLink="instalaciones">Instalaciones</a></li>
-        <li><a routerLink="reservar">Reservar</a></li>
+        <li><a *ngIf="logged" routerLink="reservar">Reservar</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a routerLink="registro">Registro</a></li>
-        <li><a routerLink="login">Login</a></li>
-        <li dropdown id="idMenuLogout">
-          <a href="#" dropdownToggle>Username <span class="caret"></span></a>
+        <li *ngIf="tologin"><a routerLink="login">Login</a></li>
+        <li *ngIf="logged" dropdown id="idMenuLogout">
+          <a href="#" dropdownToggle>{{usernameLogged}} <span class="caret"></span></a>
           <ul *dropdownMenu role="menu">
-            <li><a href="#" id="idLogout">Cerrar sesión</a></li>
+            <li *ngIf="logged"><a routerLink="logout">Cerrar sesión</a></li>
           </ul>
         </li>
       </ul>
