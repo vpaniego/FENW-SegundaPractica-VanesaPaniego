@@ -21,6 +21,10 @@
 .page .form-group {
   margin-bottom:10px;
 }
+.page .form-group .invalid-feedback{
+  color: #cd5c5c;
+  text-align: left;
+}
 .page { text-align:center;}
 .page  .btn.btn-primary {
   background: #54ce66 none repeat scroll 0 0;
