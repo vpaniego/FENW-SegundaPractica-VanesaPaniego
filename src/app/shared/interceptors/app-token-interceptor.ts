@@ -11,7 +11,15 @@ export class AppTokenInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(
+    let updatedRequest;
+    const authToken = this.auth.getTokenInSession();
+    if (authToken) {
+      updatedRequest = req.clone({headers: req.headers.set('Content-Type', 'application/json')
+          .set('Authorization', '{authToken}')});
+    } else {
+      updatedRequest = req;
+    }
+    return next.handle(updatedRequest).pipe(
       tap(
         event => {
           if (event instanceof HttpResponse) {

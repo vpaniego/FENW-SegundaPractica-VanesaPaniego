@@ -31,6 +31,10 @@ export class AppAuthenticationService {
     console.log('Token = ' + sessionStorage.getItem('CURRENT_TOKEN'));
   }
 
+  getTokenInSession(): string {
+    return sessionStorage.getItem('CURRENT_TOKEN');
+  }
+
   removeDataUserSession() {
     sessionStorage.removeItem('CURRENT_TOKEN');
     sessionStorage.removeItem('CURRENT_USER');

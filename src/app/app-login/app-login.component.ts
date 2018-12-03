@@ -20,8 +20,6 @@ export class AppLoginComponent implements OnInit {
 
     this.submitted = true;
 
-    console.log(this.formFields.nospam.value);
-
     // Se detiene aquí el formulario si es inválido
     if (this.loginform.invalid) {
       return;
