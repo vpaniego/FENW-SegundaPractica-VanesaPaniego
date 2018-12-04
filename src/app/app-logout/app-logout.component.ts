@@ -11,7 +11,6 @@ export class AppLogoutComponent implements OnInit {
   constructor(private appAuthenticationService: AppAuthenticationService) { }
 
   ngOnInit() {
-    console.log('Se ha pulsado logout');
     this.appAuthenticationService.logout();
   }
 

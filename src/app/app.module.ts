@@ -8,6 +8,8 @@ import {AppBootstrapModule} from './app-bootstrap/app-bootstrap.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
+import { NgDatepickerModule } from 'ng2-datepicker';
+
 import {AppHeaderNavbarComponent} from './app-header-navbar/app-header-navbar.component';
 import {AppServiciosComponent} from './app-servicios/app-servicios.component';
 import {AppInstalacionesComponent} from './app-instalaciones/app-instalaciones.component';
@@ -41,7 +43,8 @@ import {UsernameValidator} from './shared/validators/username';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgDatepickerModule
   ],
   providers: [
     AppAuthenticationService,

@@ -28,7 +28,7 @@ export class UsernameValidator {
             }
           },
           (err) => {
-            resolve({'usernameInUse': false});
+            resolve(null);
           });
 
       }, 1000);

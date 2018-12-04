@@ -4,6 +4,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {AppUserService} from '../shared/services/app-user.service';
 import {User} from '../shared/model/user';
 import {UsernameValidator} from '../shared/validators/username';
+import {NgDatepickerComponent} from 'ng2-datepicker';
 
 @Component({
   selector: 'app-app-registro',
@@ -16,6 +17,7 @@ export class AppRegistroComponent implements OnInit {
   submitted = false;
   newuser: User;
   showRegistryNewUser = false;
+  returnUrl: string;
 
   doRegistro(data: FormGroup) {
     this.submitted = true;
@@ -30,17 +32,12 @@ export class AppRegistroComponent implements OnInit {
 
     this.appUserService.postUser(this.newuser).subscribe(response => {
       console.log('Nuevo usuario registrado correctamente.');
-      this.router.navigateByUrl('home');
+      this.router.navigateByUrl(this.returnUrl);
     }, error => {
       console.log('Error en alta de un nuevo usuario.');
       this.showRegistryNewUser = true;
-      this.submitted = false;
       return;
     });
-  }
-
-  usernameNotExitValidation() {
-    console.log('bb');
   }
 
   constructor(private fb: FormBuilder, private appUserService: AppUserService, private route: ActivatedRoute,
@@ -56,6 +53,9 @@ export class AppRegistroComponent implements OnInit {
       birthdate: ['', ''],
       nospam: ['', [Validators.minLength(0), Validators.maxLength(0)]]
     });
+
+    // return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['login'] || '/';
 
   }
 

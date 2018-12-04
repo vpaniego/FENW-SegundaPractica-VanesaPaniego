@@ -15,11 +15,11 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a routerLink="registro">Registro</a></li>
-        <li *ngIf="tologin"><a routerLink="login">Login</a></li>
-        <li *ngIf="logged" dropdown id="idMenuLogout">
-          <a href="#" dropdownToggle>{{usernameLogged}} <span class="caret"></span></a>
-          <ul *dropdownMenu role="menu">
-            <li *ngIf="logged"><a routerLink="logout">Cerrar sesión</a></li>
+        <li *ngIf="isLoggedOut$ | async"><a routerLink="login">Login</a></li>
+        <li *ngIf="isLoggedIn$ | async" dropdown id="idMenuLogout">
+          <a dropdownToggle>{{isUserLoggedIn$ | async}} <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li *ngIf="isLoggedIn$ | async"><a routerLink="logout">Cerrar sesión</a></li>
           </ul>
         </li>
       </ul>
