@@ -20,6 +20,7 @@ import {AppLogoutComponent} from './app-logout/app-logout.component';
 import {AppAuthenticationService} from './shared/services/app-authentication.service';
 import {AppTokenInterceptor} from './shared/interceptors/app-token-interceptor';
 import {AppUserService} from './shared/services/app-user.service';
+import {UsernameValidator} from './shared/validators/username';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import {AppUserService} from './shared/services/app-user.service';
       useClass: AppTokenInterceptor,
       multi: true
     },
-    AppUserService
+    AppUserService,
+    UsernameValidator
   ],
   bootstrap: [AppComponent]
 })

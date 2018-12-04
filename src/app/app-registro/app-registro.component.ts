@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AppUserService} from '../shared/services/app-user.service';
 import {User} from '../shared/model/user';
+import {UsernameValidator} from '../shared/validators/username';
 
 @Component({
   selector: 'app-app-registro',
@@ -38,13 +39,17 @@ export class AppRegistroComponent implements OnInit {
     });
   }
 
+  usernameNotExitValidation() {
+    console.log('bb');
+  }
+
   constructor(private fb: FormBuilder, private appUserService: AppUserService, private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router, private usernameValidator: UsernameValidator) {
   }
 
   ngOnInit() {
     this.registryForm = this.fb.group({
-      username: ['', Validators.required],
+      username: ['', Validators.required, this.usernameValidator.checkUsername.bind(this.usernameValidator)],
       password: ['', Validators.required],
       repassword: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],

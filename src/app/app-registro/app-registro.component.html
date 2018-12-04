@@ -13,6 +13,7 @@
                  [ngClass]="{ 'is-invalid': submitted && formFields.username.errors }"/>
           <div *ngIf="submitted && formFields.username.errors" class="invalid-feedback">
             <div *ngIf="formFields.username.errors.required">Identificador de usuario es obligatorio</div>
+            <div *ngIf="formFields.username.errors.usernameInUse">Identificador de usuario ya registrado</div>
           </div>
         </div>
       </div>
