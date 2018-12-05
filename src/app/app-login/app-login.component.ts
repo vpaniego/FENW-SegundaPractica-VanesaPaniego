@@ -15,12 +15,11 @@ export class AppLoginComponent implements OnInit {
   showLoginAlertAuthentication = false;
   showLoginAlertUsuario = false;
   submitted = false;
+  returnUrl: string;
 
   doLogin(data: FormGroup) {
 
     this.submitted = true;
-
-    console.log(this.formFields.nospam.value);
 
     // Se detiene aquí el formulario si es inválido
     if (this.loginform.invalid) {
@@ -29,14 +28,26 @@ export class AppLoginComponent implements OnInit {
 
     this.appAuthenticationService.login(this.formFields.username.value, this.formFields.password.value)
       .subscribe(response => {
+
+        // se guarda el usuario logado
         sessionStorage.setItem('CURRENT_USER', this.formFields.username.value);
+
         console.log('Login realizado con éxito. Usuario ' + this.formFields.username.value + ' logado correctamente');
-        this.router.navigateByUrl('home');
+
+        this.appAuthenticationService.loggedIn.next(true);
+        this.appAuthenticationService.userLoggedIn.next(this.formFields.username.value);
+        this.appAuthenticationService.loggedOut.next(false);
+
+        // login successful se redirige al home
+        this.router.navigateByUrl(this.returnUrl);
+
       }, error => {
+
         console.log('Error login. Usuario ' + this.formFields.username.value + ' no registrado');
+
         this.showLoginAlertUsuario = true;
-        this.submitted = false;
-        return;
+
+
       });
   }
 
@@ -53,6 +64,9 @@ export class AppLoginComponent implements OnInit {
 
     // reset login status
     this.appAuthenticationService.logout();
+
+    // return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
   }
 

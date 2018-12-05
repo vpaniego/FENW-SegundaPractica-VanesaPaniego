@@ -1,15 +1,33 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppAuthenticationService {
 
+  loggedIn = new BehaviorSubject<boolean>(false);
+  userLoggedIn = new BehaviorSubject<string>('');
+  loggedOut = new BehaviorSubject<boolean>(true);
+
   private baseurl = 'http://fenw.etsisi.upm.es:5555';
 
-  constructor(private http: HttpClient) {
+  get isLoggedIn() {
+    return this.loggedIn.asObservable();
+  }
+
+  get isLoggedOut() {
+    return this.loggedOut.asObservable();
+  }
+
+  get isUserLoggedIn () {
+    return this.userLoggedIn.asObservable();
+  }
+
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   login(username: string, password: string) {
@@ -18,17 +36,27 @@ export class AppAuthenticationService {
 
   logout() {
     this.removeDataUserSession();
-    console.log('Logout de la aplicación');
-  }
 
-  saveDataUserSession(token: string, username: string) {
-    this.saveTokenInSession(token);
-    sessionStorage.setItem('CURRENT_USER', username);
+    this.loggedIn.next(false);
+    this.loggedOut.next(true);
+    this.userLoggedIn.next('');
+
+    this.router.navigate(['login']);
+
+    console.log('Logout de la aplicación realizado con éxito.');
   }
 
   saveTokenInSession(token: string) {
     sessionStorage.setItem('CURRENT_TOKEN', token);
-    console.log('Token = ' + sessionStorage.getItem('CURRENT_TOKEN'));
+    console.log('Token saveTokenInSession = ' + sessionStorage.getItem('CURRENT_TOKEN'));
+  }
+
+  getTokenInSession(): string {
+    return sessionStorage.getItem('CURRENT_TOKEN');
+  }
+
+  getCurrentUserInSession(): string {
+    return sessionStorage.getItem('CURRENT_USER');
   }
 
   removeDataUserSession() {

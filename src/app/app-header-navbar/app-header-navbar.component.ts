@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AppAuthenticationService } from '../shared/services/app-authentication.service';
 
 @Component({
   selector: 'app-app-header-navbar',
@@ -6,21 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app-header-navbar.component.css']
 })
 export class AppHeaderNavbarComponent implements OnInit {
-  logged = false;
-  tologin = true;
-  token: string;
-  usernameLogged: string;
+  isLoggedIn$: Observable<boolean>;
+  isUserLoggedIn$: Observable<string>;
+  isLoggedOut$: Observable<boolean>;
 
-  constructor() { }
+  constructor(private appAuthenticationService: AppAuthenticationService) {  }
 
   ngOnInit() {
-    this.token = sessionStorage.getItem('CURRENT_TOKEN');
-    if (this.token) {
-      console.log('Loggin realizado correctamente y se cambia el menu');
-      this.logged = true;
-      this.tologin = false;
-      this.usernameLogged = sessionStorage.getItem('CURRENT_USER');
-    }
+    this.isLoggedIn$ = this.appAuthenticationService.isLoggedIn;
+    this.isUserLoggedIn$ = this.appAuthenticationService.isUserLoggedIn;
+    this.isLoggedOut$ = this.appAuthenticationService.isLoggedOut;
   }
 
 }
