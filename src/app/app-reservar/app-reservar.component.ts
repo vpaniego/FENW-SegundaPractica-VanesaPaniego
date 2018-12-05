@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppReservarComponent implements OnInit {
 
+  minHour: number;
+  maxHour: number;
+  minDate: Date;
+
+
+
+
   constructor() { }
 
   ngOnInit() {
+    this.minHour = new Date().setHours(10, 0);
+    this.maxHour = new Date().setHours(22, 0);
+    this.minDate = new Date();
   }
 
 }
+

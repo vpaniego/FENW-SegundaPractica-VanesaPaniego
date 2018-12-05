@@ -11,7 +11,7 @@
         <li class="active"><a routerLink="home">Inicio</a></li>
         <li><a routerLink="servicios">Servicios</a></li>
         <li><a routerLink="instalaciones">Instalaciones</a></li>
-        <li><a *ngIf="logged" routerLink="reservar">Reservar</a></li>
+        <li><a *ngIf="isLoggedIn$ | async" routerLink="reservar">Reservar</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li *ngIf="isLoggedOut$ | async"><a routerLink="registro">Registro</a></li>

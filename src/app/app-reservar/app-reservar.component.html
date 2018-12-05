@@ -1,29 +1,38 @@
 <div class="page" id="bookPage">
   <div class="main-div-reservas">
     <div class="panel">
-      <div class="panel">
-        <h2>Reservas</h2>
-        <p>Desde aquí podrás reservar pista y hora</p>
+      <h2>Reservas</h2>
+      <p>Desde aquí podrás reservar pista y hora</p>
+      <div class="row">
+        <div class="col-md-6">
+          <p>Disponibilidad</p>
+          <h2>60, 120min</h2>
+        </div>
+        <div class="col-md-6">
+          <p>Desde</p>
+          <h2>8€</h2>
+        </div>
+      </div>
+    </div>
+    <form id="bookForm" class="form-horizontal">
+      <div class="form-group">
+        <p>Reserva pista</p>
         <div class="row">
-          <div class="col-md-6">
-            <p>Disponibilidad</p>
-            <h2>60, 90, 120 min</h2>
+          <label class="control-label col-sm-1" for="idFechaReserva">Día:</label>
+          <div class="col-md-5">
+            <input id="idFechaReserva" [owlDateTimeTrigger]="bookDate" [owlDateTime]="bookDate"
+                   class="form-control" placeholder="dd/mm/aaaa">
+            <owl-date-time [pickerType]="'calendar'" #bookDate></owl-date-time>
           </div>
-          <div class="col-md-6">
-            <p>Desde</p>
-            <h2>8€</h2>
+          <label class="control-label col-sm-1" for="idHoraReserva">Hora:</label>
+          <div class="col-md-5">
+            <input id="idHoraReserva" [owlDateTimeTrigger]="bookTime" [owlDateTime]="bookTime"
+                   class="form-control" placeholder="hh:mm">
+            <owl-date-time [pickerType]="'timer'" #bookTime [stepHour]="1" [stepMinute]="60"></owl-date-time>
           </div>
         </div>
       </div>
-      <form id="bookForm" class="form-horizontal">
-        <div class="form-group">
-          <label class="control-label col-sm-2" for="idDatepickerReserva">Reserva pista:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="idDatepickerReserva" placeholder="dd/mm/aaaa" required>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Reservar</button>
-      </form>
-    </div>
+      <button type="submit" class="btn btn-primary">Reservar</button>
+    </form>
   </div>
 </div>
