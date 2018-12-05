@@ -5,6 +5,7 @@ import {AppUserService} from '../shared/services/app-user.service';
 import {User} from '../shared/model/user';
 import {UsernameValidator} from '../shared/validators/username';
 import {NgDatepickerComponent} from 'ng2-datepicker';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-app-registro',
@@ -32,6 +33,9 @@ export class AppRegistroComponent implements OnInit {
 
     this.appUserService.postUser(this.newuser).subscribe(response => {
       console.log('Nuevo usuario registrado correctamente.');
+
+      this.toastrService.success('Usuario ' + this.newuser.username + 'registrado correctamente', 'Registro correcto!');
+
       this.router.navigateByUrl(this.returnUrl);
     }, error => {
       console.log('Error en alta de un nuevo usuario.');
@@ -41,7 +45,7 @@ export class AppRegistroComponent implements OnInit {
   }
 
   constructor(private fb: FormBuilder, private appUserService: AppUserService, private route: ActivatedRoute,
-              private router: Router, private usernameValidator: UsernameValidator) {
+              private router: Router, private usernameValidator: UsernameValidator, private toastrService: ToastrService) {
   }
 
   ngOnInit() {

@@ -15,19 +15,22 @@ export class AppUserService {
   }
 
   postUser(newuser) {
-    return this.http.post(this.baseurl + '/users/', newuser, {
-      headers: new HttpHeaders({'Auhorization': sessionStorage.getItem('CURRENT_TOKEN')})
-    });
+    return this.http.post(this.baseurl + '/users/', newuser);
+    /*, {
+    headers: new HttpHeaders({'Auhorization': sessionStorage.getItem('CURRENT_TOKEN')})
+  }*/
   }
 
   getUserByUsername(username) {
     if (username) {
       console.log('Token header userByUsername : ' + sessionStorage.getItem('CURRENT_TOKEN'));
-    return this.http.get<User>(this.baseurl + '/users/' + username, {
-      observe: 'response',
-      headers: new HttpHeaders({'Auhorization': sessionStorage.getItem('CURRENT_TOKEN')})
-    });
+      return this.http.get<User>(this.baseurl + '/users/' + username, {
+        observe: 'response'
+
+        /* Token en la cabecera no es necesario con users
+        , headers: new HttpHeaders({'Auhorization': sessionStorage.getItem('CURRENT_TOKEN')}) */
+      });
+    }
   }
-}
 
 }

@@ -15,7 +15,10 @@ export class AppTokenInterceptor implements HttpInterceptor {
       tap(
         event => {
           if (event instanceof HttpResponse) {
-            this.auth.saveTokenInSession(event.headers.get('Authorization'));
+            const tokenResponse = event.headers.get('Authorization');
+            if (tokenResponse) {
+              this.auth.saveTokenInSession(tokenResponse);
+            }
           }
         }
       )
