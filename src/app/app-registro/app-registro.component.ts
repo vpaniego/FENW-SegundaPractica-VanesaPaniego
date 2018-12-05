@@ -27,14 +27,14 @@ export class AppRegistroComponent implements OnInit {
     if (this.registryForm.invalid) {
       return;
     } else {
-      this.newuser = new User(this.formFields.username.value, this.formFields.password.value, this.formFields.repassword.value,
-        this.formFields.email.value, this.formFields.birthdate.value);
+      this.newuser = new User(this.formFields.username.value, this.formFields.email.value,
+        this.formFields.password.value, this.formFields.repassword.value, new Date(this.formFields.birthdate.value).getTime());
     }
 
     this.appUserService.postUser(this.newuser).subscribe(response => {
       console.log('Nuevo usuario registrado correctamente.');
 
-      this.toastrService.success('Usuario ' + this.newuser.username + 'registrado correctamente', 'Registro correcto!');
+      this.toastrService.success('Usuario ' + this.newuser.username + ' registrado correctamente', 'Registro correcto!');
 
       this.router.navigateByUrl(this.returnUrl);
     }, error => {

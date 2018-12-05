@@ -8,9 +8,10 @@ import {AppBootstrapModule} from './app-bootstrap/app-bootstrap.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
+import {OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE} from 'ng-pick-datetime';
+
 
 import {AppHeaderNavbarComponent} from './app-header-navbar/app-header-navbar.component';
 import {AppServiciosComponent} from './app-servicios/app-servicios.component';
@@ -59,7 +60,8 @@ import {UsernameValidator} from './shared/validators/username';
       multi: true
     },
     AppUserService,
-    UsernameValidator
+    UsernameValidator,
+    {provide: OWL_DATE_TIME_LOCALE, useValue: 'es'}
   ],
   bootstrap: [AppComponent]
 })
