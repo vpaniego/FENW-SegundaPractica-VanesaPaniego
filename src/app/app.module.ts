@@ -8,9 +8,9 @@ import {AppBootstrapModule} from './app-bootstrap/app-bootstrap.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
-import { NgDatepickerModule } from 'ng2-datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import {AppHeaderNavbarComponent} from './app-header-navbar/app-header-navbar.component';
 import {AppServiciosComponent} from './app-servicios/app-servicios.component';
@@ -46,9 +46,10 @@ import {UsernameValidator} from './shared/validators/username';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgDatepickerModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   providers: [
     AppAuthenticationService,
