@@ -57,8 +57,9 @@
         <div class="col-sm-10">
           <!-- <input type="text" class="form-control" id="idDatepickerFechaNacimiento" name="birthdate" placeholder="dd/mm/aaaa"
             formControlName="birthdate"> -->
-          <input id="idDatepickerFechaNacimiento" [owlDateTimeTrigger]="birthdate" [owlDateTime]="birthdate">
-          <owl-date-time [pickerMode]="'dialog'" #birthdate></owl-date-time>
+          <input id="idDatepickerFechaNacimiento" class="form-control" [owlDateTimeTrigger]="birthdate" [owlDateTime]="birthdate" placeholder="dd/mm/aaaa"
+                 formControlName="birthdate">
+          <owl-date-time [pickerMode]="'dialog'" #birthdate pickerType="calendar"></owl-date-time>
         </div>
       </div>
       <div *ngIf="showLoginAlertNuevoUsuario" class="alert alert-danger" id="alertaErrorLogin">
