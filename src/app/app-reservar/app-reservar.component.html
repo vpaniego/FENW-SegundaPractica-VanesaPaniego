@@ -14,25 +14,173 @@
         </div>
       </div>
     </div>
-    <form id="bookForm" class="form-horizontal">
-      <div class="form-group">
-        <p>Reserva pista</p>
-        <div class="row">
-          <label class="control-label col-sm-1" for="idFechaReserva">Día:</label>
-          <div class="col-md-5">
-            <input id="idFechaReserva" [owlDateTimeTrigger]="bookDate" [owlDateTime]="bookDate"
-                   class="form-control" placeholder="dd/mm/aaaa">
-            <owl-date-time [pickerType]="'calendar'" #bookDate></owl-date-time>
+    <div class="panel">
+      <form id="booksForm" class="form-horizontal" (submit)="doSearchReservations(booksForm)" [formGroup]="booksForm">
+        <div class="form-group">
+          <h2>Reserva pista</h2>
+          <div class="row">
+            <label class="control-label col-sm-1" for="idFechaReserva">Día:</label>
+            <div class="col-md-8">
+              <input id="idFechaReserva" [owlDateTimeTrigger]="bookDate" [owlDateTime]="bookDate"
+                     class="form-control" placeholder="dd/mm/aaaa" class="form-control" name="bookDate"
+                     formControlName="bookDate">
+              <owl-date-time #bookDate pickerType="calendar" [stepHour]="1" [stepMinute]="60"></owl-date-time>
+            </div>
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
           </div>
-          <label class="control-label col-sm-1" for="idHoraReserva">Hora:</label>
-          <div class="col-md-5">
-            <input id="idHoraReserva" [owlDateTimeTrigger]="bookTime" [owlDateTime]="bookTime"
-                   class="form-control" placeholder="hh:mm">
-            <owl-date-time [pickerType]="'timer'" #bookTime [stepHour]="1" [stepMinute]="60"></owl-date-time>
+          <div class="row">
+            <div *ngIf="submitted && formFields.bookDate.errors" class="invalid-feedback">
+              <div *ngIf="formFields.bookDate.errors.required">Debe seleccionar una fecha para ver las reservas
+                disponibles
+              </div>
+            </div>
+
+          </div>
+          <!-- Honeypot: Mecanismo para evitar bots -->
+          <div class="form-group">
+            <label for="nospam" class="escondido">¡Si ves esto, no rellenes el siguiente campo!</label>
+            <input id="nospam" name="nospam" class="escondido" formControlName="nospam"/>
+            <div *ngIf="submitted && formFields.nospam.errors" class="invalid-feedback">
+              <div *ngIf="formFields.nospam.errors">SPAM: Eres un bot!!!</div>
+            </div>
           </div>
         </div>
+      </form>
+      <br>
+      <div *ngIf="isReservationLoaded$ | async">
+        <table>
+          <caption> Pistas disponibles para el día seleccionado</caption>
+          <tr>
+            <th></th>
+            <th>Pista 1</th>
+            <th>Pista 2</th>
+            <th>Pista 3</th>
+            <th>Pista 4</th>
+          </tr>
+          <tr>
+            <td><label class="control-label col-sm-5">10 - 11 am</label></td>
+            <td><input type="radio" id="reserva10Pista1" name="reserva10Pista1" (click)="selectReserva()"/></td>
+            <td><input type="radio" id="reserva10Pista2" name="reserva10Pista2" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva10Pista3" name="reserva10Pista3" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva10Pista4" name="reserva10Pista4" (click)="selectReserva(aReserva)"/>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="control-label col-sm-5">11 - 12 am</label></td>
+            <td><input type="radio" id="reserva11Pista1" name="reserva11Pista1" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva11Pista2" name="reserva11Pista2" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva11Pista3" name="reserva11Pista3" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva11Pista4" name="reserva11Pista4" (click)="selectReserva(aReserva)"/>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="control-label col-sm-5">12 - 13 pm</label></td>
+            <td><input type="radio" id="reserva12Pista1" name="reserva12Pista1" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva12Pista2" name="reserva12Pista2" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva12Pista3" name="reserva12Pista3" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva12Pista4" name="reserva12Pista4" (click)="selectReserva(aReserva)"/>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="control-label col-sm-5">13 - 14 pm</label></td>
+            <td><input type="radio" id="reserva13Pista1" name="reserva13Pista1" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva13Pista2" name="reserva13Pista2" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva13Pista3" name="reserva13Pista3" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva13Pista4" name="reserva13Pista4" (click)="selectReserva(aReserva)"/>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="control-label col-sm-5">14 - 15 pm</label></td>
+            <td><input type="radio" id="reserva14Pista1" name="reserva14Pista1" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva14Pista2" name="reserva14Pista2" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva14Pista3" name="reserva14Pista3" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva14Pista4" name="reserva14Pista4" (click)="selectReserva(aReserva)"/>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="control-label col-sm-5">15 - 16 pm</label></td>
+            <td><input type="radio" id="reserva15Pista1" name="reserva15Pista1" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva15Pista2" name="reserva15Pista2" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva15Pista3" name="reserva15Pista3" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva15Pista4" name="reserva15Pista4" (click)="selectReserva(aReserva)"/>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="control-label col-sm-5">16 - 17 pm</label></td>
+            <td><input type="radio" id="reserva16Pista1" name="reserva16Pista1" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva16Pista2" name="reserva16Pista2" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva16Pista3" name="reserva16Pista3" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva16Pista4" name="reserva16Pista4" (click)="selectReserva(aReserva)"/>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="control-label col-sm-5">17 - 18 pm</label></td>
+            <td><input type="radio" id="reserva17Pista1" name="reserva17Pista1" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva17Pista2" name="reserva17Pista2" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva17Pista3" name="reserva17Pista3" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva17Pista4" name="reserva17Pista4" (click)="selectReserva(aReserva)"/>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="control-label col-sm-5">18 - 19 pm</label></td>
+            <td><input type="radio" id="reserva18Pista1" name="reserva18Pista1" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva18Pista2" name="reserva18Pista2" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva18Pista3" name="reserva18Pista3" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva18Pista4" name="reserva18Pista4" (click)="selectReserva(aReserva)"/>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="control-label col-sm-5">19 - 20 pm</label></td>
+            <td><input type="radio" id="reserva19Pista1" name="reserva19Pista1" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva19Pista2" name="reserva19Pista2" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva19Pista3" name="reserva19Pista3" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva19Pista4" name="reserva19Pista4" (click)="selectReserva(aReserva)"/>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="control-label col-sm-5">20 - 21 pm</label></td>
+            <td><input type="radio" id="reserva20Pista1" name="reserva20Pista1" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva20Pista2" name="reserva20Pista2" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva20Pista3" name="reserva20Pista3" (click)="selectReserva(aReserva)"/>
+            </td>
+            <td><input type="radio" id="reserva20Pista4" name="reserva20Pista4" (click)="selectReserva(aReserva)"/>
+            </td>
+          </tr>
+        </table>
       </div>
-      <button type="submit" class="btn btn-primary">Reservar</button>
-    </form>
+    </div>
   </div>
 </div>

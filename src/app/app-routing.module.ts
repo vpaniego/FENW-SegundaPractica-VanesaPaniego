@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'home', component: AppHomeComponent },
   { path: 'servicios', component: AppServiciosComponent },
   { path: 'instalaciones', component: AppInstalacionesComponent },
-  { path: 'reservar', component: AppReservarComponent },
+  { path: 'reservar', component: AppReservarComponent},
   { path: 'registro', component: AppRegistroComponent },
   { path: 'login', component: AppLoginComponent },
   { path: 'logout', component: AppLogoutComponent },

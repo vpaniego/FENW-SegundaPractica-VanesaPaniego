@@ -1,6 +1,9 @@
 .panel h2{ color:#444444; font-size:18px; margin:0 0 8px 0;}
 .panel h3 { color:#274344; font-size:16px;}
 .panel p { color:#777777; font-size:14px; margin-bottom:30px; line-height:24px;}
+.panel label {margin-left: 18px;}
+.panel table {color:#777777; font-size:14px; margin-bottom:30px; line-height:24px; width:100%}
+.panel th {text-align: center;}
 .main-div-reservas{
   background: #ffffff none repeat scroll 0 0;
   border-radius: 2px;
@@ -20,6 +23,11 @@
 .page { text-align:center;}
 .page .form-group {
   margin-bottom:10px;
+}
+.page .form-group .invalid-feedback{
+  color: #cd5c5c;
+  text-align: left;
+  margin-left: 85px;
 }
 .page { text-align:center;}
 .page  .btn.btn-primary {

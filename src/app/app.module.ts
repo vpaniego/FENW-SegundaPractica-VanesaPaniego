@@ -12,7 +12,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE} from 'ng-pick-datetime';
 
-
 import {AppHeaderNavbarComponent} from './app-header-navbar/app-header-navbar.component';
 import {AppServiciosComponent} from './app-servicios/app-servicios.component';
 import {AppInstalacionesComponent} from './app-instalaciones/app-instalaciones.component';
@@ -26,6 +25,7 @@ import {AppAuthenticationService} from './shared/services/app-authentication.ser
 import {AppTokenInterceptor} from './shared/interceptors/app-token-interceptor';
 import {AppUserService} from './shared/services/app-user.service';
 import {UsernameValidator} from './shared/validators/username';
+import {AppBookService} from './shared/services/app-book.service';
 
 
 @NgModule({
@@ -61,7 +61,8 @@ import {UsernameValidator} from './shared/validators/username';
     },
     AppUserService,
     UsernameValidator,
-    {provide: OWL_DATE_TIME_LOCALE, useValue: 'es'}
+    {provide: OWL_DATE_TIME_LOCALE, useValue: 'es'},
+    AppBookService
   ],
   bootstrap: [AppComponent]
 })
