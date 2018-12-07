@@ -22,8 +22,8 @@ export class AppBookService {
   }
 
   postReserva(courtid, rsvdatetime ) {
-    const newreservation = new Reservation(0, courtid, rsvdatetime, '', '');
-    return this.http.post(this.baseurl + '/reservations/', newreservation);
+    this.reservationLoaded.next(false);
+    return this.http.post(this.baseurl + '/reservations/', {'courtid': courtid, 'rsvdatetime': rsvdatetime});
   }
 
 

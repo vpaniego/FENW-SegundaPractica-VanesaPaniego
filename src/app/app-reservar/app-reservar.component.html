@@ -24,7 +24,7 @@
               <input id="idFechaReserva" [owlDateTimeTrigger]="bookDate" [owlDateTime]="bookDate"
                      class="form-control" placeholder="dd/mm/aaaa" class="form-control" name="bookDate"
                      formControlName="bookDate">
-              <owl-date-time #bookDate pickerType="calendar" [stepHour]="1" [stepMinute]="60"></owl-date-time>
+              <owl-date-time #bookDate pickerType="calendar"  [stepHour]="1" [stepMinute]="60"></owl-date-time>
             </div>
             <div class="col-md-2">
               <button type="submit" class="btn btn-primary">Buscar</button>
@@ -67,28 +67,28 @@
                 <td><span>-</span></td>
               </ng-container>
               <ng-template #input_radio1>
-                <td><input type="radio" (click)="selectReserva(areserva)"/></td>
+                <td><input type="radio" (click)="selectReserva(areserva, '#input_radio1')"/></td>
               </ng-template>
 
               <ng-container *ngIf="areserva.court2; else input_radio2">
                 <td><span>-</span></td>
               </ng-container>
               <ng-template #input_radio2>
-                <td><input type="radio" (click)="selectReserva(areserva)"/></td>
+                <td><input type="radio" (click)="selectReserva(areserva, '#input_radio2')"/></td>
               </ng-template>
 
               <ng-container *ngIf="areserva.court3; else input_radio3">
                 <td><span>-</span></td>
               </ng-container>
               <ng-template #input_radio3>
-                <td><input type="radio" (click)="selectReserva(areserva)"/></td>
+                <td><input type="radio" (click)="selectReserva(areserva, '#input_radio3')"/></td>
               </ng-template>
 
               <ng-container *ngIf="areserva.court4; else input_radio4">
                 <td><span>-</span></td>
               </ng-container>
               <ng-template #input_radio4>
-                <td><input type="radio" (click)="selectReserva(areserva)"/></td>
+                <td><input type="radio" (click)="selectReserva(areserva, '#input_radio4')"/></td>
               </ng-template>
             </tr>
           </ng-container>

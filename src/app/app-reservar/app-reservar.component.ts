@@ -26,14 +26,14 @@ export class AppReservarComponent implements OnInit {
   newcortId: number;
   newreservaDay: number;
 
-  selectReserva(reservaView: ReservationView) {
+  selectReserva(reservaView: ReservationView, inputRadioClicked: string) {
 
     // Se busca cual ha sido la pista seleccionada
-    if (reservaView.court1) {
+    if (inputRadioClicked === '#input_radio1') {
       this.newcortId = 1;
-    } else if (reservaView.court2) {
+    } else if (inputRadioClicked === '#input_radio2') {
       this.newcortId = 2;
-    } else if (reservaView.court3) {
+    } else if (inputRadioClicked === '#input_radio3') {
       this.newcortId = 3;
     } else {
       this.newcortId = 4;
@@ -48,11 +48,14 @@ export class AppReservarComponent implements OnInit {
     this.appBookService.postReserva(this.newcortId, this.newBookDate.getTime()).subscribe(
       response => {
         this.toastrService.success('Reserva realizada correctamente ', 'Reserva correcta!');
-        this.router.navigateByUrl('home');
       }, error => {
         this.toastrService.error('Error en el registro de una nueva reserva.', 'Registro no realizado!');
         return;
       });
+
+    this.newreservaDay = 0;
+    this.newBookDate = null;
+    this.newcortId = 0;
   }
 
   doSearchReservations() {
@@ -87,7 +90,6 @@ export class AppReservarComponent implements OnInit {
 
         this.reservationRows.forEach(reservationView => {
           const timeView = reservationView.rsvtime;
-
           this.allReservationsByDate.forEach(reservation => {
             const time = reservation.rsvtime;
             if (timeView === time) {
@@ -110,12 +112,12 @@ export class AppReservarComponent implements OnInit {
           });
         });
 
-        this.appBookService.reservationLoaded.next(true);
-
       }, error1 => {
         this.toastrService.error('Error en la búsqueda de reservas');
       }
     );
+
+    this.appBookService.reservationLoaded.next(true);
 
   }
 
