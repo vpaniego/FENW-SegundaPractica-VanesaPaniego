@@ -4,7 +4,6 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {AppUserService} from '../shared/services/app-user.service';
 import {User} from '../shared/model/user';
 import {UsernameValidator} from '../shared/validators/username';
-import {NgDatepickerComponent} from 'ng2-datepicker';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
@@ -39,6 +38,7 @@ export class AppRegistroComponent implements OnInit {
       this.router.navigateByUrl(this.returnUrl);
     }, error => {
       console.log('Error en alta de un nuevo usuario.');
+      this.toastrService.success('Error en el alta de un nuevo usuario', 'Registro no realizado!');
       this.showRegistryNewUser = true;
       return;
     });

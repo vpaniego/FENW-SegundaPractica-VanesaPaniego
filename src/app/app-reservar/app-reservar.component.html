@@ -14,25 +14,86 @@
         </div>
       </div>
     </div>
-    <form id="bookForm" class="form-horizontal">
-      <div class="form-group">
-        <p>Reserva pista</p>
-        <div class="row">
-          <label class="control-label col-sm-1" for="idFechaReserva">Día:</label>
-          <div class="col-md-5">
-            <input id="idFechaReserva" [owlDateTimeTrigger]="bookDate" [owlDateTime]="bookDate"
-                   class="form-control" placeholder="dd/mm/aaaa">
-            <owl-date-time [pickerType]="'calendar'" #bookDate></owl-date-time>
+    <div class="panel">
+      <form id="booksForm" class="form-horizontal" (submit)="doSearchReservations(booksForm)" [formGroup]="booksForm">
+        <div class="form-group">
+          <h2>Reserva pista</h2>
+          <div class="row">
+            <label class="control-label col-sm-1" for="idFechaReserva">Día:</label>
+            <div class="col-md-8">
+              <input id="idFechaReserva" [owlDateTimeTrigger]="bookDate" [owlDateTime]="bookDate"
+                     class="form-control" placeholder="dd/mm/aaaa" class="form-control" name="bookDate"
+                     formControlName="bookDate">
+              <owl-date-time #bookDate pickerType="calendar"  [stepHour]="1" [stepMinute]="60"></owl-date-time>
+            </div>
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
           </div>
-          <label class="control-label col-sm-1" for="idHoraReserva">Hora:</label>
-          <div class="col-md-5">
-            <input id="idHoraReserva" [owlDateTimeTrigger]="bookTime" [owlDateTime]="bookTime"
-                   class="form-control" placeholder="hh:mm">
-            <owl-date-time [pickerType]="'timer'" #bookTime [stepHour]="1" [stepMinute]="60"></owl-date-time>
+          <div class="row">
+            <div *ngIf="submitted && formFields.bookDate.errors" class="invalid-feedback">
+              <div *ngIf="formFields.bookDate.errors.required">Debe seleccionar una fecha para ver las reservas
+                disponibles
+              </div>
+            </div>
+
+          </div>
+          <!-- Honeypot: Mecanismo para evitar bots -->
+          <div class="form-group">
+            <label for="nospam" class="escondido">¡Si ves esto, no rellenes el siguiente campo!</label>
+            <input id="nospam" name="nospam" class="escondido" formControlName="nospam"/>
+            <div *ngIf="submitted && formFields.nospam.errors" class="invalid-feedback">
+              <div *ngIf="formFields.nospam.errors">SPAM: Eres un bot!!!</div>
+            </div>
           </div>
         </div>
+      </form>
+      <br>
+      <div *ngIf="isReservationLoaded$ | async">
+        <table>
+          <caption> Pistas disponibles para el día seleccionado</caption>
+          <tr>
+            <th></th>
+            <th>Pista 1</th>
+            <th>Pista 2</th>
+            <th>Pista 3</th>
+            <th>Pista 4</th>
+          </tr>
+          <ng-container *ngFor="let areserva of reservationRows">
+            <tr>
+              <td><label class="control-label col-sm-5">{{areserva.namerv}}</label></td>
+
+              <ng-container *ngIf="areserva.court1; else input_radio1">
+                <td><span>-</span></td>
+              </ng-container>
+              <ng-template #input_radio1>
+                <td><input type="radio" (click)="selectReserva(areserva, '#input_radio1')"/></td>
+              </ng-template>
+
+              <ng-container *ngIf="areserva.court2; else input_radio2">
+                <td><span>-</span></td>
+              </ng-container>
+              <ng-template #input_radio2>
+                <td><input type="radio" (click)="selectReserva(areserva, '#input_radio2')"/></td>
+              </ng-template>
+
+              <ng-container *ngIf="areserva.court3; else input_radio3">
+                <td><span>-</span></td>
+              </ng-container>
+              <ng-template #input_radio3>
+                <td><input type="radio" (click)="selectReserva(areserva, '#input_radio3')"/></td>
+              </ng-template>
+
+              <ng-container *ngIf="areserva.court4; else input_radio4">
+                <td><span>-</span></td>
+              </ng-container>
+              <ng-template #input_radio4>
+                <td><input type="radio" (click)="selectReserva(areserva, '#input_radio4')"/></td>
+              </ng-template>
+            </tr>
+          </ng-container>
+        </table>
       </div>
-      <button type="submit" class="btn btn-primary">Reservar</button>
-    </form>
+    </div>
   </div>
 </div>
