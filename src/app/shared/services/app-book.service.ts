@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {AppAuthenticationService} from './app-authentication.service';
 import {Reservation} from '../model/reservation';
 import {BehaviorSubject} from 'rxjs';
@@ -21,8 +21,9 @@ export class AppBookService {
   constructor(private http: HttpClient, private appAuthService: AppAuthenticationService) {
   }
 
-  postReserva(newreserva) {
-    return this.http.post(this.baseurl + '/reservations/', newreserva);
+  postReserva(courtid, rsvdatetime ) {
+    const newreservation = new Reservation(0, courtid, rsvdatetime, '', '');
+    return this.http.post(this.baseurl + '/reservations/', newreservation);
   }
 
 
